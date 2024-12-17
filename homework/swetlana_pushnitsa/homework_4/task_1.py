@@ -1,9 +1,9 @@
 my_dict = {
-    "tuple": (1, 2, 3, 4, 5), 
-    "list": [10, 20, 30, 40, 50], 
-    "dict": {"one": "1", "two": "2", "three": "3", "four": "4", "five": "5"}, 
+    "tuple": (1, 2, 3, 4, 5),
+    "list": [10, 20, 30, 40, 50],
+    "dict": {"one": "1", "two": "2", "three": "3", "four": "4", "five": "5"},
     "set": {"one", 3, 6, "five", 10}
-    }
+}
 
 print(my_dict["tuple"][-1])
 
