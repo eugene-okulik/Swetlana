@@ -11,7 +11,7 @@ my_dict["list"].append(100)
 my_dict["list"].pop(1)
 print(my_dict["list"])
 
-my_dict["dict"]["i am a tuple,",] = 6
+my_dict["dict"]["i am a tuple",] = 6
 my_dict["dict"].pop("one")
 print(my_dict["dict"])
 
