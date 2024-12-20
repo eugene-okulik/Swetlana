@@ -2,7 +2,7 @@ students = ['Ivanov', 'Petrov', 'Sidorov']
 
 subjects = ['math', 'biology', 'geography']
 
-student_1, student_2, student_3 = students
-subject_1, subject_2, subject_3 = subjects
+students_string = ", ".join(students)
+subjects_string = ", ".join(subjects)
 
-print(f"Students {student_1}, {student_2}, {student_3} study these subjects: {subject_1}, {subject_2}, {subject_3}")
+print(f"Students {students_string} study these subjects: {subjects_string}")
