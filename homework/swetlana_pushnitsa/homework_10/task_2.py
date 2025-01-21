@@ -10,4 +10,5 @@ def deco(func):
 def example(text):
     print(text)
 
+
 example("I love python", count=5)
