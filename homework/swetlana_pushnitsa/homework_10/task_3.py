@@ -1,7 +1,7 @@
 def deco_check(func):
     def wrapper(*args):
         first = args[0]
-        second = args [1]
+        second = args[1]
         if first == second:
             return func(first, second, "+")
         elif first < 0 or second < 0:
