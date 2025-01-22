@@ -1,7 +1,7 @@
 def deco(count):
     def inner(func):
         def wrapper(*args):
-            for i in range(count):
+            for _ in range(count):
                 func(*args)
         return wrapper
     return inner
