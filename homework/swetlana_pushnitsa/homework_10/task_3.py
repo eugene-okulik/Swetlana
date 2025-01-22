@@ -10,6 +10,7 @@ def deco_check(func):
             return func(first, second, "-")
         elif first < second:
             return func(first, second, "/")
+
     return wrapper
 
 

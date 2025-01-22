@@ -20,6 +20,7 @@ def deco_check(func):
             return func(first, second, Operator.subtraction)
         elif first < second:
             return func(first, second, Operator.divide)
+
     return wrapper
 
 
