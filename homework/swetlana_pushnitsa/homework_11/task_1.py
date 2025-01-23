@@ -24,23 +24,36 @@ book_2 = Book("Magic Rock", "Thomas Mann", 860, 54903647, False)
 book_3 = Book("The Day", "Michael Cunningham", 300, 5369854, False)
 book_4 = Book("February 1933", "Uwe Wittstock", 169, 9865742, False)
 book_5 = Book("Orlando", "Virginia Woolf", 471, 5964236, False)
-book_6 = SchoolBook("Mathematics", "Petrov", 400, 869037, True, "Math", 8, True)
-book_7 = SchoolBook("English", "Semenov", 600, 569712, False, "English language", 7, True)
-book_8 = SchoolBook("History", "Marivanna", 120, 78549, False, "International History", 10, False)
+book_6 = SchoolBook("Mathematics", "Petrov", 400, 869037, True,
+                    "Math", 8, True)
+book_7 = SchoolBook("English", "Semenov", 600, 569712, False,
+                    "English language", 7, True)
+book_8 = SchoolBook("History", "Marivanna", 120, 78549, False,
+                    "International History", 10, False)
 
 
 def print_book_info(value):
     if value.reserved is True:
-        print(f"Name: {value.name}, Author: {value.author}, Number of pages: {value.page_number}, Material: {value.page_material}, status: reserved")
+        print(
+            f"Name: {value.name}, Author: {value.author}, Number of pages: {value.page_number}, "
+            f"Material: {value.page_material}, status: reserved"
+        )
     else:
-        print(f"Name: {value.name}, Author: {value.author}, Number of pages: {value.page_number}, Material: {value.page_material}")
+        print(
+            f"Name: {value.name}, Author: {value.author}, Number of pages: {value.page_number}, "
+            f"Material: {value.page_material}"
+        )
 
 
 def print_school_book_info(value):
     if value.reserved is True:
-        print(f"Name: {value.name}, Author: {value.author}, Number of pages: {value.page_number}, Subject: {value.subject}, Class: {value.group}, status: reserved")
+        print(
+            f"Name: {value.name}, Author: {value.author}, Number of pages: {value.page_number}, "
+            f"Subject: {value.subject}, Class: {value.group}, status: reserved"
+        )
     else:
-        print(f"Name: {value.name}, Author: {value.author}, Number of pages: {value.page_number}, Subject: {value.subject}, Class: {value.group}")
+        print(f"Name: {value.name}, Author: {value.author}, Number of pages: {value.page_number}, "
+              f"Subject: {value.subject}, Class: {value.group}")
 
 
 print_book_info(book_1)
