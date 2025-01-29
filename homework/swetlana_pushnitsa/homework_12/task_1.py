@@ -95,7 +95,7 @@ class Bouquet:
         return sorted_result
 
     def sorting_price(self):
-        sorted_result = sorted(self.__flowers, key = lambda x: x.price())
+        sorted_result = sorted(self.__flowers, key=lambda x: x.price())
         return sorted_result
 
     def search_flower_by_color(self, color):
