@@ -48,9 +48,6 @@ class Rose(Flower):
         super().__init__(name, color, fresh, price, flower_form)
         self.thorns = thorns
 
-    def thorns(self):
-        return self.thorns
-
 
 class Tulip(Flower):
     def __init__(self, name, color, fresh, price, flower_form: FormFlower, type_tulip: TypeTulip):
