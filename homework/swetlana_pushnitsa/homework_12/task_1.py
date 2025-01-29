@@ -50,6 +50,7 @@ class Rose(Flower):
 
 
 class Tulip(Flower):
+
     def __init__(self, name, color, fresh, price, flower_form: FormFlower, type_tulip: TypeTulip):
         super().__init__(name, color, fresh, price, flower_form)
         self.type_t = type_tulip
@@ -65,6 +66,7 @@ class Tulip(Flower):
 
 
 class Green(Flower):
+
     def __init__(self, name, color, fresh, price, flower_form: FormFlower):
         super().__init__(name, color, fresh, price, flower_form)
 
