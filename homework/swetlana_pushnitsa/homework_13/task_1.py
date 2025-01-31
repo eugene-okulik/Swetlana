@@ -4,6 +4,47 @@ import re
 from datetime import timedelta
 
 
+class DateTimeFileHandler:
+
+    def __init__(self, file_name):
+        base_path = os.path.dirname(__file__)
+        homework_path = os.path.dirname(os.path.dirname(base_path))
+        self.file_path = os.path.join(homework_path, "eugene_okulik", "hw_13", file_name)
+
+    def __enter__(self):
+        self.file = open(self.file_path, "r", encoding="utf-8")
+        return self
+
+    def __exit__(self, *args):
+        self.file.close()
+
+    def get_next_date(self):
+        file_line = self.file.readline()
+        date_time_format = '%Y-%m-%d %H:%M:%S.%f'
+        pattern_date = r"^(\d{1}.) (\d{4}\-\d{2}\-\d{2} \d{2}\:\d{2}\:\d{2}.\d{6})"
+        date_search = re.match(pattern_date, file_line)
+        date = date_search.group(2)
+        date_datetime = datetime.datetime.strptime(date, date_time_format)
+        return date_datetime
+
+
+with DateTimeFileHandler("data.txt") as file:
+    print(file.get_next_date())
+    print(file.get_next_date())
+    print(file.get_next_date())
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 base_path = os.path.dirname(__file__)
 homework_path = os.path.dirname(os.path.dirname(base_path))
