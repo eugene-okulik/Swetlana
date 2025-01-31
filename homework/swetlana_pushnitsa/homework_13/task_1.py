@@ -27,32 +27,30 @@ class DateTimeFileHandler:
         date_datetime = datetime.datetime.strptime(date, date_time_format)
         return date_datetime
 
+
 def in_1_week(line):
     date_in_7_days = line + timedelta(days=7)
     print(date_in_7_days)
+
 
 def which_day_of_the_week(line):
     date_date = line.date()
     which_day = date_date.weekday()
     print(which_day)
 
+
 def how_long_ago(line):
     time_now = datetime.datetime.now()
     how_long_date = time_now - line
     print(how_long_date)
+
 
 with DateTimeFileHandler("data.txt") as file:
     line_1 = file.get_next_date()
     line_2 = file.get_next_date()
     line_3 = file.get_next_date()
 
+
 in_1_week(line_1)
 which_day_of_the_week(line_2)
 how_long_ago(line_3)
-
-
-
-
-
-
-
