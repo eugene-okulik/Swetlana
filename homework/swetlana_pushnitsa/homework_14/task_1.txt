@@ -1,0 +1,35 @@
+INSERT INTO students (name, second_name) VALUES ('Patrik', 'Star')
+
+INSERT INTO books (title, taken_by_student_id) values ('Bikini Botom', 4133),
+('How to eat a see sponge', 4133),
+('more about plankton', 4133)
+
+INSERT INTO `groups` (title, start_date, end_date) values ('Bikini Bottom', 'jan. 2025', 'jan. 2026')
+
+UPDATE students SET group_id = 2607 WHERE id = 4133
+
+UPDATE books SET title = 'Bikini Bottom' where id = 6006
+UPDATE books set title = 'How to eat a sea sponge' where id = 6007
+UPDATE books set title = 'More about plankton' where id = 6008
+
+INSERT INTO subjets (title) VALUES ('Sea life'), ('Octopus'), ('People and a sea star')
+
+INSERT INTO lessons (title, subject_id) VALUES ('How to hide', 4067), ('How to hunt', 4067),
+('Speaking with octopus', 4068), ('Friendship with octopus: how not to be eaten', 4068),
+('How people use a sea sponge', 4069), ('What you can do if you was hunted', 4069)
+
+INSERT INTO marks (value, lesson_id, student_id) VALUES (4, 7868, 4133), (5, 7868, 4133),
+(5, 7869, 4133), (2, 7870, 4133), (5, 7871, 4133), (4, 7872, 4133), (3, 7873, 4133)
+
+SELECT * FROM marks WHERE student_id = 4133
+
+SELECT * FROM books WHERE books.taken_by_student_id = 4133
+
+SELECT * FROM students
+JOIN books
+ON students.id = books.taken_by_student_id
+JOIN marks
+ON students.id = marks.student_id
+JOIN lessons
+ON marks.lesson_id = lessons.id
+WHERE students.id = 4133
