@@ -112,6 +112,7 @@ all_info_about_student = cursor.fetchall()
 
 db.commit()
 
+
 print(all_info_about_student)
 
 db.close()
