@@ -56,7 +56,7 @@ culture_id = culture['id']
 
 query_lessons = "INSERT INTO lessons (title, subject_id) VALUES (%s, %s)"
 cursor.executemany(
-    query_lessons,[
+    query_lessons, [
         ('Impressionism', culture_id),
         ('Modernism', culture_id),
         ('France', geography_id),
