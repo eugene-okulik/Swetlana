@@ -11,9 +11,6 @@ db = mysql.connect(
 
 
 cursor = db.cursor(dictionary=True)
-
-
-
 def new_student(name, second_name):
     query_student = "INSERT INTO students (name, second_name) VALUES (%s, %s)"
     cursor.execute(query_student, (name, second_name))
@@ -55,15 +52,14 @@ def marks(mark, lesson_id, student_id):
     cursor.execute(query_marks, (mark, lesson_id, student_id))
     return cursor.lastrowid
 
-#create a new student and add him in a new group
+
 jj_oliver_id = new_student('J.J', 'Oliver')
 book_python_id = new_book('Python', jj_oliver_id)
 book_testing_software_id = new_book('Testing Software', jj_oliver_id)
 book_testcases_id = new_book('Testcases', jj_oliver_id)
-Monty_python_group_id = new_group('Monty Python', 'jan 2025', 'jan 2026')
-add_JJ_Oliver_in_group = update_group(Monty_python_group_id, jj_oliver_id)
+monty_python_group_id = new_group('Monty Python', 'jan 2025', 'jan 2026')
+add_JJ_Oliver_in_group = update_group(monty_python_group_id, jj_oliver_id)
 
-#create new subjects and lessons
 programming_languages_id = new_subject('Programming languages')
 theory_of_developing_id = new_subject('Theory of developing')
 math_id = new_subject('Mathematics')
@@ -74,14 +70,12 @@ waterfall_lesson_id = new_lesson('Waterfall', theory_of_developing_id)
 algebra_lesson_id = new_lesson('Algebra', math_id)
 geometry_lesson_id = new_lesson('Geometry', math_id)
 
-#write for our student marks for every lesson
 mark_python = marks(5, python_lesson_id, jj_oliver_id)
 mark_javascript = marks(3, javascript_lesson_id, jj_oliver_id)
 mark_agile = marks(4, agile_lesson_id, jj_oliver_id)
 mark_waterfall = marks(3, waterfall_lesson_id, jj_oliver_id)
 mark_algebra = marks(4, algebra_lesson_id, jj_oliver_id)
 mark_geometry = marks(5, geometry_lesson_id, jj_oliver_id)
-
 
 marks_query = "SELECT * FROM marks WHERE student_id = %s"
 cursor.execute(marks_query, (jj_oliver_id,))
@@ -107,7 +101,6 @@ cursor.execute(query_all_info_about_student, (jj_oliver_id,))
 all_info_about_student = cursor.fetchall()
 
 db.commit()
-
 
 print(all_info_about_student)
 
