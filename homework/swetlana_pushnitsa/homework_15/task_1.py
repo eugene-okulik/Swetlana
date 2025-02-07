@@ -13,88 +13,83 @@ db = mysql.connect(
 cursor = db.cursor(dictionary=True)
 
 
-query_student = "INSERT INTO students (name, second_name) VALUES (%s, %s)"
-cursor.execute(query_student, ('Thomas', 'Mann'))
-new_student_id = cursor.lastrowid
 
-query_book = "INSERT INTO books (title, taken_by_student_id) values (%s, %s)"
-cursor.executemany(
-    query_book, [
-        ('Magic Rock', new_student_id),
-        ('Buddenbroki', new_student_id),
-        ('Dr.Faust', new_student_id)
-    ]
-)
-
-cursor.execute("SELECT id FROM books order by id DESC LIMIT 3")
-book_1, book_2, book_3 = cursor.fetchmany(3)
-book_1_id = book_1['id']
-book_2_id = book_2['id']
-book_3_id = book_3['id']
-
-query_group = "INSERT INTO `groups` (title, start_date, end_date) values (%s, %s, %s)"
-cursor.execute(query_group, ('Monty Python', 'jan 25', 'jan 26'))
-new_group_id = cursor.lastrowid
-
-query_update_group = "UPDATE students SET group_id = %s WHERE id = %s"
-cursor.execute(query_update_group, (new_group_id, new_student_id))
-
-query_subject = "INSERT INTO subjets (title) VALUES (%s)"
-cursor.executemany(
-    query_subject, [
-        ('Culture',),
-        ('Geography',),
-        ('Medicine',)
-    ]
-)
-
-cursor.execute("SELECT id FROM subjets order by id DESC LIMIT 3")
-medicine, geography, culture = cursor.fetchmany(3)
-medicine_id = medicine['id']
-geography_id = geography['id']
-culture_id = culture['id']
-
-query_lessons = "INSERT INTO lessons (title, subject_id) VALUES (%s, %s)"
-cursor.executemany(
-    query_lessons, [
-        ('Impressionism', culture_id),
-        ('Modernism', culture_id),
-        ('France', geography_id),
-        ('Spain', geography_id),
-        ('Surgery', medicine_id),
-        ('Pediatric', medicine_id)
-    ]
-)
-
-cursor.execute("SELECT id FROM lessons order by id DESC LIMIT 6")
-pediatric, surgery, spain, france, modernism, impressionism = cursor.fetchmany(6)
-pediatric_id = pediatric['id']
-surgery_id = surgery['id']
-spain_id = spain['id']
-france_id = france['id']
-modernism_id = modernism['id']
-impressionism_id = impressionism['id']
+def new_student(name, second_name):
+    query_student = "INSERT INTO students (name, second_name) VALUES (%s, %s)"
+    cursor.execute(query_student, (name, second_name))
+    return cursor.lastrowid
 
 
-query_marks = "INSERT INTO marks (value, lesson_id, student_id) VALUES (%s, %s, %s)"
-cursor.executemany(
-    query_marks, [
-        (5, impressionism_id, new_student_id),
-        (3, modernism_id, new_student_id),
-        (2, france_id, new_student_id),
-        (5, spain_id, new_student_id),
-        (5, surgery_id, new_student_id),
-        (5, pediatric_id, new_student_id)
-    ]
-)
+def new_book(book_title, student_id):
+    query_book = "INSERT INTO books (title, taken_by_student_id) values (%s, %s)"
+    cursor.execute(query_book, (book_title, student_id))
+    return cursor.lastrowid
+
+
+def new_group(title_of_group, start_date, end_date):
+    query_group = "INSERT INTO `groups` (title, start_date, end_date) values (%s, %s, %s)"
+    cursor.execute(query_group, (title_of_group, start_date, end_date))
+    return cursor.lastrowid
+
+
+def update_group(group_id, student_id):
+    query_update_group = "UPDATE students SET group_id = %s WHERE id = %s"
+    cursor.execute(query_update_group, (group_id, student_id))
+    return cursor.lastrowid
+
+
+def new_subject(subject_title):
+    query_subject = "INSERT INTO subjets (title) VALUES (%s)"
+    cursor.execute(query_subject, (subject_title,))
+    return cursor.lastrowid
+
+
+def new_lesson(lesson_title, subject_id):
+    query_lessons = "INSERT INTO lessons (title, subject_id) VALUES (%s, %s)"
+    cursor.execute(query_lessons, (lesson_title, subject_id))
+    return cursor.lastrowid
+
+
+def marks(mark, lesson_id, student_id):
+    query_marks = "INSERT INTO marks (value, lesson_id, student_id) VALUES (%s, %s, %s)"
+    cursor.execute(query_marks, (mark, lesson_id, student_id))
+    return cursor.lastrowid
+
+#create a new student and add him in a new group
+jj_oliver_id = new_student('J.J', 'Oliver')
+book_python_id = new_book('Python', jj_oliver_id)
+book_testing_software_id = new_book('Testing Software', jj_oliver_id)
+book_testcases_id = new_book('Testcases', jj_oliver_id)
+Monty_python_group_id = new_group('Monty Python', 'jan 2025', 'jan 2026')
+add_JJ_Oliver_in_group = update_group(Monty_python_group_id, jj_oliver_id)
+
+#create new subjects and lessons
+programming_languages_id = new_subject('Programming languages')
+theory_of_developing_id = new_subject('Theory of developing')
+math_id = new_subject('Mathematics')
+python_lesson_id = new_lesson('Python', programming_languages_id)
+javascript_lesson_id = new_lesson('JavaScript', programming_languages_id)
+agile_lesson_id = new_lesson('Agile', theory_of_developing_id)
+waterfall_lesson_id = new_lesson('Waterfall', theory_of_developing_id)
+algebra_lesson_id = new_lesson('Algebra', math_id)
+geometry_lesson_id = new_lesson('Geometry', math_id)
+
+#write for our student marks for every lesson
+mark_python = marks(5, python_lesson_id, jj_oliver_id)
+mark_javascript = marks(3, javascript_lesson_id, jj_oliver_id)
+mark_agile = marks(4, agile_lesson_id, jj_oliver_id)
+mark_waterfall = marks(3, waterfall_lesson_id, jj_oliver_id)
+mark_algebra = marks(4, algebra_lesson_id, jj_oliver_id)
+mark_geometry = marks(5, geometry_lesson_id, jj_oliver_id)
+
 
 marks_query = "SELECT * FROM marks WHERE student_id = %s"
-cursor.execute(marks_query, (new_student_id,))
+cursor.execute(marks_query, (jj_oliver_id,))
 
 marks_student = cursor.fetchall()
 
 marks_query = "SELECT * FROM books WHERE taken_by_student_id = %s"
-cursor.execute(marks_query, (new_student_id,))
+cursor.execute(marks_query, (jj_oliver_id,))
 books_taken_by_student = cursor.fetchall()
 
 query_all_info_about_student = '''
@@ -108,7 +103,7 @@ ON marks.lesson_id = lessons.id
 WHERE students.id = %s
 '''
 
-cursor.execute(query_all_info_about_student, (new_student_id,))
+cursor.execute(query_all_info_about_student, (jj_oliver_id,))
 all_info_about_student = cursor.fetchall()
 
 db.commit()
