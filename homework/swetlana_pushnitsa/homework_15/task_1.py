@@ -11,6 +11,8 @@ db = mysql.connect(
 
 
 cursor = db.cursor(dictionary=True)
+
+
 def new_student(name, second_name):
     query_student = "INSERT INTO students (name, second_name) VALUES (%s, %s)"
     cursor.execute(query_student, (name, second_name))
