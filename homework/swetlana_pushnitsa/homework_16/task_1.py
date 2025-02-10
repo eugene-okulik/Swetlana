@@ -6,8 +6,7 @@ from pathlib import Path
 
 
 parent_dir = Path.cwd().parent.parent
-file_path = parent_dir/"eugene_okulik/Lesson_16/hw_data/data.csv"
-# new_file_path = Path.cwd()/"student_info_csv.csv"
+file_path = parent_dir / "eugene_okulik/Lesson_16/hw_data/data.csv"
 
 dotenv.load_dotenv(override=True)
 
@@ -20,7 +19,7 @@ db = mysql.connect(
 )
 
 cursor = db.cursor(dictionary=True)
-cursor.execute('''SELECT students.name, students.second_name, `groups`.title AS group_title, 
+cursor.execute('''SELECT students.name, students.second_name, `groups`.title AS group_title,
 books.title AS book_title, subjets.title AS subject_title, lessons.title AS lesson_title, marks.value AS mark_value
 FROM students
 LEFT JOIN `groups` ON students.group_id = `groups`.id
