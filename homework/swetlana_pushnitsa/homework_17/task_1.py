@@ -13,9 +13,9 @@ def create_obj():
     }
     headers = {'Content-Type': 'application/json'}
     response = requests.post('http://167.172.172.115:52353/object',
-         json=body,
-         headers=headers
-    )
+        json=body,
+        headers=headers
+        )
     return response.json()["id"]
 
 
@@ -31,9 +31,9 @@ def put_object():
     }
     headers = {'Content-Type': 'application/json'}
     response = requests.put(f'http://167.172.172.115:52353/object/{post_id}',
-                             json=body,
-                             headers=headers
-                             ).json()
+        json=body,
+        headers=headers
+        ).json()
     assert response['name'] == "I'm an old post"
     clear(post_id)
 
@@ -45,9 +45,9 @@ def patch_obj():
     }
     headers = {'Content-Type': 'application/json'}
     response = requests.patch(f'http://167.172.172.115:52353/object/{post_id}',
-                             json=body,
-                             headers=headers
-                             ).json()
+        json=body,
+        headers=headers
+        ).json()
     assert response['data'] == {"banana": 1}
     clear(post_id)
 
