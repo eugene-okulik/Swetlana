@@ -32,7 +32,24 @@ class TestApi:
         yield self.post_id
         requests.delete(f'http://167.172.172.115:52353/object/{self.post_id}')
 
-    def test_get_all_objects(self, start_end, before_after):
+
+    @pytest.mark.parametrize("data", [{"cherry": 5, "melon": 3}, {}, {"tomato": "six"}])
+    def test_create_delete_obj(self, data, before_after, start_end):
+        body = {
+            "data": data,
+            "name": "I'm a new post"
+        }
+        headers = {'Content-Type': 'application/json'}
+        response = requests.post(
+            'http://167.172.172.115:52353/object',
+            json=body,
+            headers=headers
+        )
+        self.post_id = response.json()["id"]
+        requests.delete(f'http://167.172.172.115:52353/object/{self.post_id}')
+        assert response.status_code == 200
+
+    def test_get_all_objects(self, before_after):
         response = requests.get('http://167.172.172.115:52353/object')
         assert type(response.json()) == dict
 
@@ -64,34 +81,3 @@ class TestApi:
         assert response['data'] == {"banana": 1}
 
 
-class TestApiCreateDeleteObj:
-
-    @pytest.fixture(scope="session")
-    def start_end(self):
-        print('\nStart Testing!')
-        yield
-        print('\nTesting completed')
-
-    @pytest.fixture()
-    def before_after(self):
-        print('\nbefore test')
-        yield
-        print('\nafter test')
-
-    @pytest.fixture()
-    def create_obj(self, request):
-        body = {
-            "data": request.param,
-            "name": "I'm a new post"
-        }
-        headers = {'Content-Type': 'application/json'}
-        response = requests.post(
-            'http://167.172.172.115:52353/object',
-            json=body,
-            headers=headers
-        ).json()
-        return response['data']
-
-    @pytest.mark.parametrize("data", [{"cherry": 5, "melon": 3}, {}, {"tomato": "six"}])
-    def test_delete_obj(self, data, before_after):
-        requests.delete(f'http://167.172.172.115:52353/object/{data}')
