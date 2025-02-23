@@ -32,6 +32,20 @@ class TestApi:
         yield self.post_id
         requests.delete(f'http://167.172.172.115:52353/object/{self.post_id}')
 
+    @pytest.fixture()
+    def create_obj(self):
+        body = {
+            "data": {"apple": 2, "orange": 3},
+            "name": "I'm a new post"
+        }
+        headers = {'Content-Type': 'application/json'}
+        response = requests.post(
+            'http://167.172.172.115:52353/object',
+            json=body,
+            headers=headers
+        ).json()
+        self.post_id = response["id"]
+
     @pytest.mark.parametrize("data", [{"cherry": 5, "melon": 3}, {}, {"tomato": "six"}])
     def test_create_delete_obj(self, data, before_after, start_end):
         body = {
@@ -78,3 +92,6 @@ class TestApi:
             headers=headers
         ).json()
         assert response['data'] == {"banana": 1}
+
+    def test_delete_object(self, create_obj, before_after):
+        requests.delete(f'http://167.172.172.115:52353/object/{self.post_id}')
