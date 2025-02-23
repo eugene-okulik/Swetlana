@@ -47,7 +47,7 @@ class TestApi:
         self.post_id = response["id"]
 
     @pytest.mark.parametrize("data", [{"cherry": 5, "melon": 3}, {}, {"tomato": "six"}])
-    def test_create_delete_obj(self, data, before_after, start_end):
+    def test_create_delete_object(self, data, before_after, start_end):
         body = {
             "data": data,
             "name": "I'm a new post"
@@ -81,7 +81,7 @@ class TestApi:
         assert response['name'] == "I'm an old post"
 
     @pytest.mark.medium
-    def test_patch_obj(self, create_del_obj, before_after):
+    def test_patch_object(self, create_del_obj, before_after):
         body = {
             'data': {"banana": 1}
         }
