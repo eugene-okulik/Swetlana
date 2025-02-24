@@ -1,5 +1,3 @@
-from http.client import responses
-
 import pytest
 import requests
 
@@ -95,5 +93,9 @@ class TestApi:
         assert response['data'] == {"banana": 1}
 
     def test_delete_object(self, create_obj, before_after):
-        requests.delete(f'http://167.172.172.115:52353/object/{self.post_id}')
-        assert self.post_id not in requests.get('http://167.172.172.115:52353/object/')
+        response = requests.get(f'http://167.172.172.115:52353/object/{self.post_id}')
+        assert response.status_code == 200
+        response_delete = requests.delete(f'http://167.172.172.115:52353/object/{self.post_id}')
+        assert response_delete.status_code == 200
+        response_get_after = requests.get(f'http://167.172.172.115:52353/object/{self.post_id}')
+        assert response_get_after.status_code == 404
