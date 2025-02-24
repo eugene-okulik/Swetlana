@@ -1,3 +1,5 @@
+from http.client import responses
+
 import pytest
 import requests
 
@@ -47,7 +49,7 @@ class TestApi:
         self.post_id = response["id"]
 
     @pytest.mark.parametrize("data", [{"cherry": 5, "melon": 3}, {}, {"tomato": "six"}])
-    def test_create_delete_object(self, data, before_after, start_end):
+    def test_create_object(self, data, before_after, start_end):
         body = {
             "data": data,
             "name": "I'm a new post"
@@ -58,9 +60,8 @@ class TestApi:
             json=body,
             headers=headers
         )
-        self.post_id = response.json()["id"]
-        requests.delete(f'http://167.172.172.115:52353/object/{self.post_id}')
         assert response.status_code == 200
+        assert response.json()['data'] == data
 
     def test_get_all_objects(self, before_after):
         response = requests.get('http://167.172.172.115:52353/object')
@@ -95,3 +96,4 @@ class TestApi:
 
     def test_delete_object(self, create_obj, before_after):
         requests.delete(f'http://167.172.172.115:52353/object/{self.post_id}')
+        assert self.post_id not in requests.get('http://167.172.172.115:52353/object/')
