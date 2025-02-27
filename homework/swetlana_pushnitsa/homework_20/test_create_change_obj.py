@@ -7,10 +7,10 @@ import allure
 @allure.feature('Essential features')
 class TestCreateObj:
 
-    @allure.story('Create a 3 new objects')
+    @allure.story('Create a three new objects')
     @pytest.mark.parametrize("data", [{"cherry": 5, "melon": 3}, {}, {"tomato": "six"}])
     def test_create_object(self, data, before_after, start_end):
-        with allure.step('Create 3 objects in every itteration'):
+        with allure.step('Create 3 objects in every iteration'):
             body = {
                 "data": data,
                 "name": "I'm a new post"
