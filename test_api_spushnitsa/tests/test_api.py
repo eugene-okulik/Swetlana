@@ -6,6 +6,7 @@ TEST_DATA = [{"data": {"cherry": 5, "melon": 3}, "name": "I'm new post"},
              {"data": {}, "name": "I'm new post"},
              {"data": {"tomato": "six"}, "name": "I'm new post"}]
 
+
 @allure.feature('create_objects')
 @pytest.mark.parametrize("data", TEST_DATA)
 def test_create_object(create_post_endpoint, data):

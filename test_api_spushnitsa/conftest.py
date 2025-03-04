@@ -8,6 +8,7 @@ from test_api_spushnitsa.endpoints.patch_post import PatchPost
 
 DATA_CREATE_OBJECT = {"data": {"apple": 2, "peach": 4}, "name": "I'm an old post"}
 
+
 @pytest.fixture()
 def create_post_endpoint():
     return CreatePost()
