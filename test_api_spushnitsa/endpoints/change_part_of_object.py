@@ -3,10 +3,10 @@ import allure
 import requests
 
 
-class PatchPost(EndpointMain):
+class ChangePartOfObject(EndpointMain):
 
     @allure.step('change only one element of object')
-    def patch_post(self, post_id, payload, headers=None):
+    def update_object_part(self, post_id, payload, headers=None):
         headers = headers if headers else self.headers
         self.response = requests.patch(
             f'{self.url}/{post_id}',

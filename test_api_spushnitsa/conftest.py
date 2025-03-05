@@ -1,40 +1,47 @@
 import pytest
-from test_api_spushnitsa.endpoints.create_post import CreatePost
-from test_api_spushnitsa.endpoints.get_object import GetAllObjects
-from test_api_spushnitsa.endpoints.change_post import UpdatePost
-from test_api_spushnitsa.endpoints.delete_post import DeletePost
-from test_api_spushnitsa.endpoints.patch_post import PatchPost
+from test_api_spushnitsa.endpoints.create_object import CreateObject
+from test_api_spushnitsa.endpoints.get_object import GetObjects
+from test_api_spushnitsa.endpoints.change_object import ChangeObject
+from test_api_spushnitsa.endpoints.delete_object import DeleteObject
+from test_api_spushnitsa.endpoints.change_part_of_object import ChangePartOfObject
 
 
 DATA_CREATE_OBJECT = {"data": {"apple": 2, "peach": 4}, "name": "I'm an old post"}
 
 
 @pytest.fixture()
-def create_post_endpoint():
-    return CreatePost()
+def create_object_endpoint():
+    return CreateObject()
 
 
 @pytest.fixture()
-def get_post_endpoint():
-    return GetAllObjects()
+def get_objects_endpoint():
+    return GetObjects()
 
 
 @pytest.fixture()
-def put_post_endpoint():
-    return UpdatePost()
+def update_object_endpoint():
+    return ChangeObject()
 
 
 @pytest.fixture()
-def post_id(create_post_endpoint):
-    create_post_endpoint.new_post(DATA_CREATE_OBJECT)
-    yield create_post_endpoint.post_id
+def get_object_id(create_object_endpoint):
+    create_object_endpoint.new_object(DATA_CREATE_OBJECT)
+    yield create_object_endpoint.object_id
 
 
 @pytest.fixture()
-def patch_post_endpoint():
-    return PatchPost()
+def create_object_id_then_delete_it(delete_object_endpoint, create_object_endpoint):
+    create_object_endpoint.new_object(DATA_CREATE_OBJECT)
+    yield create_object_endpoint.object_id
+    delete_object_endpoint.delete_object(create_object_id_then_delete_it)
 
 
 @pytest.fixture()
-def delete_post_endpoint():
-    return DeletePost()
+def update_part_of_object_endpoint():
+    return ChangePartOfObject()
+
+
+@pytest.fixture()
+def delete_object_endpoint():
+    return DeleteObject()

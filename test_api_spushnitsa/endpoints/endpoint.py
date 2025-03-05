@@ -6,14 +6,14 @@ class EndpointMain:
     response = None
     json = None
     headers = {'Content-Type': 'application/json'}
-    post_id = None
+    object_id = None
 
-    @allure.step('Check status code')
-    def check_response_code(self):
+    @allure.step('Check status code is 200')
+    def check_response_code_is_200(self):
         assert self.response.status_code == 200
 
     @allure.step('Check post name')
-    def check_post_name(self, name):
+    def check_object_name(self, name):
         assert self.json['name'] == name
 
     @allure.step('Check collection of objects is created')
